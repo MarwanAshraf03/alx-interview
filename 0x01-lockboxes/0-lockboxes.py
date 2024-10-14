@@ -10,6 +10,8 @@ def canUnlockAll(boxes):
     lcopy = list_of_keys.copy()
     for i in range(len(boxes)):
         for key in lcopy:
+            if key > ln:
+                continue
             list_of_keys.extend(boxes[key])
             if summation == sum(set(list_of_keys)):
                 return True
