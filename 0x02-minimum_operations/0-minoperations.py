@@ -18,7 +18,7 @@ def minOperations(n):
         if is_p:
             l_of_p_nums.append(x)
     if n in l_of_p_nums:
-        return n
+        return 0
     llll = []
     n1 = n
     while True:
