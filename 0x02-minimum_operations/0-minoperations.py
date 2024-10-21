@@ -2,8 +2,6 @@
 """
 Main file for testing
 """
-import math
-import time
 
 
 def minOperations2(n):
