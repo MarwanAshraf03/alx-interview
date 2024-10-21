@@ -4,7 +4,7 @@ Main file for testing
 """
 
 
-def minOperations2(n):
+def minOperations(n):
     """
     finds min number of operations to print H for n times
     using only two operations (Copy All and Paste)
