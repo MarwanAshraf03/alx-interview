@@ -51,7 +51,7 @@ if __name__ == "__main__":
                     after_10(None, None)
                     count = 0
         except KeyboardInterrupt:
-            print("Pressed")
+            # print("Pressed")
             after_10(None, None)
 
         count += 1
