@@ -31,7 +31,8 @@ if __name__ == "__main__":
         try:
             text = sys.stdin.readline()
             if not text:
-                after_10(None, None)
+                # print("couldn't get from stdout")
+                # after_10(None, None)
                 break
             pattern = (
                         r'([\d]+\.[\d]+\.[\d]+\.[\d]+) - '
@@ -42,7 +43,6 @@ if __name__ == "__main__":
                         r'[\d]{1,4}'
                         )
             splitted = text.split()
-
             match = re.search(pattern, text)
             if match is not None:
                 file_size += int(splitted[-1])
@@ -51,6 +51,7 @@ if __name__ == "__main__":
                     after_10(None, None)
                     count = 0
         except KeyboardInterrupt:
+            print("Pressed")
             after_10(None, None)
 
         count += 1
