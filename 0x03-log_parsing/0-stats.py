@@ -1,26 +1,12 @@
 #!/usr/bin/python3
-"""Module for logging some data to stdout"""
+"""Module for logging metrics to stdout."""
 import sys
 import re
 import signal
 
 
-def after_10():
-    """Function to run every 10 headers or after a signal interrupt."""
-    print(f"File size: {file_size}")
-    for s, c in statuses.items():
-        if c > 0:
-            print(f"{s}: {c}")
-
-
-def handle_exit(signum, frame):
-    """Handle exit signals by running after_10 and then exiting."""
-    after_10()
-    sys.exit(0)
-
-
-if __name__ == "__main__":
-    statuses = {
+file_size = 0
+status_codes = {
         "200": 0,
         "301": 0,
         "400": 0,
@@ -30,34 +16,41 @@ if __name__ == "__main__":
         "405": 0,
         "500": 0
     }
-    file_size = 0
-    count = 0
-    signal.signal(signal.SIGINT, handle_exit)
-    signal.signal(signal.SIGPIPE, handle_exit)
+count = 0
 
-    while True:
-        try:
-            text = sys.stdin.readline()
-            if not text:
-                after_10()
-                break
-            pattern = (
-                r'([\d]+\.[\d]+\.[\d]+\.[\d]+) - '
-                r'\[[\d]{4}-[\d]{2}-[\d]{2} '
-                r'[\d]{2}:[\d]{2}:[\d]{2}\.[\d]{2,}\] '
-                r'"GET \/projects\/260 HTTP\/1\.1" '
-                r'[\d]{3} '
-                r'[\d]{1,4}'
-            )
-            splitted = text.split()
-            match = re.search(pattern, text)
-            if match is not None:
-                file_size += int(splitted[-1])
-                statuses[splitted[-2]] += 1
-                if count == 10:
-                    after_10()
-                    count = 0
-        except KeyboardInterrupt:
-            handle_exit(None, None)
 
+def print_stats():
+    """Function to print the accumulated statistics."""
+    print(f"File size: {file_size}")
+    for code in sorted(status_codes.keys()):
+        if status_codes[code] > 0:
+            print(f"{code}: {status_codes[code]}")
+
+
+def signal_handler(signum, frame):
+    """Handler for keyboard interrupt."""
+    print_stats()
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, signal_handler)
+
+pattern = (
+    r'([\d]+\.[\d]+\.[\d]+\.[\d]+) - '
+    r'\[[\d]{4}-[\d]{2}-[\d]{2} [\d]{2}:[\d]{2}:[\d]{2}\.[\d]{2,}\] '
+    r'"GET \/projects\/260 HTTP\/1\.1" (\d{3}) (\d+)'
+)
+
+for line in sys.stdin:
+    match = re.match(pattern, line)
+    if match:
+        status_code, size = match.groups()[1], match.groups()[2]
+        file_size += int(size)
+        if status_code in status_codes:
+            status_codes[status_code] += 1
         count += 1
+    if count == 10:
+        print_stats()
+        count = 0
+
+print_stats()
