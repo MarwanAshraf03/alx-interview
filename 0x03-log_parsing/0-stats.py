@@ -32,10 +32,8 @@ if __name__ == "__main__":
     }
     file_size = 0
     count = 0
-
-    # Set up signal handlers
-    signal.signal(signal.SIGINT, handle_exit)  # Handle Ctrl+C
-    signal.signal(signal.SIGPIPE, handle_exit)  # Handle broken pipe
+    signal.signal(signal.SIGINT, handle_exit)
+    signal.signal(signal.SIGPIPE, handle_exit)
 
     while True:
         try:
