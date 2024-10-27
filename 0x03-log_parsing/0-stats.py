@@ -32,7 +32,7 @@ if __name__ == "__main__":
             text = sys.stdin.readline()
             if not text:
                 # print("couldn't get from stdout")
-                # after_10(None, None)
+                after_10(None, None)
                 break
             pattern = (
                         r'([\d]+\.[\d]+\.[\d]+\.[\d]+) - '
