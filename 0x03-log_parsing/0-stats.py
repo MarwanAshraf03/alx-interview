@@ -13,7 +13,7 @@ def after_10(signum, frame):
             print(f"{s}: {c}")
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     statuses = {
         "200": 0,
         "301": 0,
@@ -27,7 +27,7 @@ if __name__ == "main":
     signal.signal(signal.SIGINT, after_10)
     file_size = 0
     count = 0
-    while True:
+    while True: 
         try:
             text = sys.stdin.readline()
             if not text:
@@ -47,7 +47,6 @@ if __name__ == "main":
             if match is not None:
                 file_size += int(splitted[-1])
                 statuses[splitted[-2]] += 1
-                # print(f"{file_size}, {statuses}")
                 if count == 10:
                     after_10(None, None)
                     count = 0
