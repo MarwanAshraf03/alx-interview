@@ -16,6 +16,7 @@ def minOperations(n):
     while True:
         n2 = helper(n1)
         llll.append(n2)
+        print(llll)
         n1 /= n2
         if llll[-1] == -1:
             break
