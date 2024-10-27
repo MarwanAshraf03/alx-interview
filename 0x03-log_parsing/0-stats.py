@@ -1,10 +1,12 @@
 #!/usr/bin/python3
+"""Module for logging some data to the stdout"""
 import sys
 import re
 import signal
 
 
 def after_10(signum, frame):
+    """function to run every 10 headers or after keyinterrupt"""
     print(f"File size: {file_size}")
     for s, c in statuses.items():
         if c > 0:
