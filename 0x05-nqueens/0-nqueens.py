@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """nqueens solution module"""
 import sys
-# n = 4
 
 
 def possible_sols(n, pos, SolMap):
@@ -43,7 +42,7 @@ def backTrack(row, n, SolMap, sol):
     """uses backtracking to find best solutions"""
     if row == n:
         solListt.append(sol.copy())
-        sol.clear()
+        # sol.clear()
         return
     for col in range(n):
         if row == 0:
