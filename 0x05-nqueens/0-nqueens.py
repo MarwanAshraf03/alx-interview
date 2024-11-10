@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """nqueens solution module"""
 import sys
 # n = 4
