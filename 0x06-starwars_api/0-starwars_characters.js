@@ -1,6 +1,6 @@
 #!/usr/bin/node
-const request = require("request");
-function requestAsync(url) {
+const request = require('request');
+function requestAsync (url) {
   return new Promise((resolve, reject) => {
     request(url, (error, response, body) => {
       if (error) {
@@ -10,9 +10,9 @@ function requestAsync(url) {
     });
   });
 }
-async function main() {
+async function main () {
   request(
-    "https://swapi-api.alx-tools.com/api/films/" + process.argv[2],
+    'https://swapi-api.alx-tools.com/api/films/' + process.argv[2],
     async function (error, response, body) {
       if (error) throw error;
       const b = JSON.parse(body);
