@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-""""""
+"""making a change module"""
 
 
 def makeChange(coins, total):
-    """"""
+    """making a change function"""
     if total <= 0:
         return 0
     coins.sort(reverse=True)
