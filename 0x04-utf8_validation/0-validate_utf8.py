@@ -13,8 +13,6 @@ def validUTF8(data):
         0b11111000
     ]
     for byte in data:
-        if byte > 255:
-            return False
         byte = byte & 0xFF
         if num_bytes == 0:
             if (byte & masks[1]) == masks[0]:
